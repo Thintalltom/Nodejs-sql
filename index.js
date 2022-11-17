@@ -32,15 +32,41 @@ db.query(sql, (err) => {
 
 //create table
 
-app.get('/createtab', (req,res) => {
-    let sql ='CREATE TABLE employee(id int AUTO_INCREMENT, name VARCHAR(255), address VARCHAR(255), PRIMARY KEY(id)'
-    db.query(sql, (err) => {
+app.get('/createtable', (req,res) => {
+    let sql ='CREATE TABLE employee(id int AUTO_INCREMENT, name VARCHAR(255), address VARCHAR(255), PRIMARY KEY(id))'
+    db.query(sql , (err) => {
         if(err){
-            throw err
+            throw err;
         }
         res.send('table created')
     }
     )
+})
+
+// add values into the table
+
+app.get('/employee1', (req, res) => {
+    let post = {name: 'tiwaloluwa', address: 'lagos'}
+    let sql = 'INSERT INTO employee SET ?'
+    let query = db.query(sql, post, (err) => {
+        if(err) {
+            throw err;
+        }
+        res.send('VALUE ADDES')
+    })
+})
+
+//select employee
+
+app.get('/getemployeelist', (req, res) => {
+    let sql = 'SELECT * FROM employee'
+    let query = db.query(sql, (err, results) => {
+        if(err){
+            throw err
+        }
+        console.log(results)
+        res.send('selected')
+    })
 })
 
 //connect to a local host
