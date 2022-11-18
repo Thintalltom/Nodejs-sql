@@ -52,7 +52,7 @@ app.get('/employee1', (req, res) => {
         if(err) {
             throw err;
         }
-        res.send('VALUE ADDES')
+        res.send('VALUE ADDED')
     })
 })
 
@@ -66,6 +66,33 @@ app.get('/getemployeelist', (req, res) => {
         }
         console.log(results)
         res.send('selected')
+    })
+})
+
+
+//update employee list 
+
+app.get('/updateemployee/:id', (req, res) => {
+    let newInfo = 'olamide'
+    let sql = `UPDATE employee SET name = '${newInfo}' WHERE id = '${req.params.id}'`
+    let query = db.query(sql, err => {
+        if(err)
+        {
+            throw err
+        }
+        res.send('Table employee update')
+    })
+})
+
+//delete a user 
+
+app.get('/deletemployee/:id', (req,res) => {
+    let sql = `DELETE employee WHERE id = '${req.params.id}'`
+    let query = db.query(sql, err => {
+        if(err) {
+            throw err
+        }
+        res.send('Record deleted')
     })
 })
 
